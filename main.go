@@ -12,8 +12,8 @@ func main() {
 	u3 := dimensions.NewUnit(24.6, "cm")
 	d1 := dimensions.NewDimensions(u1, u2, u3, "inch")
 	d2 := dimensions.NewDimensions(u1, u2, u3, "cm")
-	printDimensions(d1, "inch")
-	printDimensions(d2, "cm")
+	printDimensions(d1, "inch") //ругается при попытке передать структуру в интерфейс. 
+	printDimensions(d2, "cm") 
 }
 
 func printDimensions(d dimensions.Dimensions, u string) {
