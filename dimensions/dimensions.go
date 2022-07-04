@@ -1,69 +1,116 @@
 package dimensions
 
-type UnitType string
-
-const (
-	Inch UnitType = "inch"
-	CM   UnitType = "cm"
-)
-
-// размер + единица измерения
-type Unit struct {
-	Value float64
-	T     UnitType
+type Phone interface {
+	Brand() string
+	Model() string
+	Type() string
 }
 
-//конвертация inch\cm и обратно
-func (u Unit) Get(t UnitType) float64 {
-	value := u.Value
-
-	if t != u.T {
-		switch u.T {
-		case "inch":
-			value = value * 2.54
-		case "cm":
-			value = value / 2.54
-		}
-	}
-	return value
+type StationPhone interface {
+	ButtonsCount() int
 }
 
-type Dimensions interface {
-	Length() Unit
-	Width() Unit
-	Height() Unit
+type Smartphone interface {
+	OS() string
 }
 
-type dimensions struct {
-	length Unit
-	width  Unit
-	height Unit
+type applePhone struct {
+	brand     string
+	model     string
+	typePhone string
+	os        string
 }
 
-func Length(d dimensions) Unit {
-	return d.length
+type androidPhone struct {
+	brand     string
+	model     string
+	typePhone string
+	os        string
+}
+type stantionPhone struct {
+	brand       string
+	model       string
+	typePhone   string
+	buttonCount int
 }
 
-func Width(d dimensions) Unit {
-	return d.width
-}
-
-func Height(d dimensions) Unit {
-	return d.height
-}
-
-//конструкторы
-func NewDimensions(l, w, h Unit, u UnitType) dimensions {
-	return dimensions{
-		length: Unit{Value: l.Get(u), T: u},
-		width:  Unit{Value: w.Get(u), T: u},
-		height: Unit{Value: h.Get(u), T: u},
+// конструкторы
+func NewApplePhone(model string) applePhone {
+	return applePhone{
+		brand:     "Apple",
+		model:     model,
+		typePhone: "smartphone",
+		os:        "MacOS",
 	}
 }
 
-func NewUnit(v float64, t UnitType) Unit {
-	return Unit{
-		Value: v,
-		T:     t,
+func NewAndroidPhone(brand, model string) androidPhone {
+	return androidPhone{
+		brand:     brand,
+		model:     model,
+		typePhone: "smartphone",
+		os:        "Android",
+	}
+
+}
+
+func NewStantionPhone(brand, model string, buttonCount int) stantionPhone {
+	return stantionPhone{
+		brand:       brand,
+		model:       model,
+		typePhone:   "stantion",
+		buttonCount: buttonCount,
 	}
 }
+
+//методы для ApplePhone
+func (a applePhone) Brand() string {
+	return a.brand
+}
+
+func (a applePhone) Model() string {
+	return a.model
+}
+
+func (a applePhone) Type() string {
+	return a.typePhone
+}
+
+func (a applePhone) OS() string {
+	return a.os
+}
+
+//методы для AndroidPhone
+func (a androidPhone) Brand() string {
+	return a.brand
+}
+
+func (a androidPhone) Model() string {
+	return a.model
+}
+
+func (a androidPhone) Type() string {
+	return a.typePhone
+}
+
+func (a androidPhone) OS() string {
+	return a.os
+}
+
+//методы для StantionPhone
+func (s stantionPhone) Brand() string {
+	return s.brand
+}
+
+func (s stantionPhone) Model() string {
+	return s.model
+}
+
+func (s stantionPhone) Type() string {
+	return s.typePhone
+}
+
+func (s stantionPhone) ButtonsCount() int {
+	return s.buttonCount
+}
+
