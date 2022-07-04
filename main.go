@@ -2,20 +2,31 @@ package main
 
 import (
 	"fmt"
-	"myFirstModule/dimensions"
+	"myFirstModule/electronic"
 )
 
 func main() {
+	iphone := electronic.NewApplePhone("9")
+	samsung := electronic.NewAndroidPhone("Galaxy", "X6")
+	nokia := electronic.NewStantionPhone("Nokia", "6310", 17)
+	printCharacteristics(iphone)
+	printCharacteristics(samsung)
+	printCharacteristics(nokia)
 
-	u1 := dimensions.NewUnit(12.1, "inch")
-	u2 := dimensions.NewUnit(3.1, "inch")
-	u3 := dimensions.NewUnit(24.6, "cm")
-	d1 := dimensions.NewDimensions(u1, u2, u3, "inch")
-	d2 := dimensions.NewDimensions(u1, u2, u3, "cm")
-	printDimensions(d1, "inch") //ругается при попытке передать структуру в интерфейс. 
-	printDimensions(d2, "cm") 
 }
 
-func printDimensions(d dimensions.Dimensions, u string) {
-	fmt.Printf("IN %v dimensions: height: %v, length: %v, width: %v\n", u, d.Height().Value, d.Length().Value, d.Width().Value)
+func printCharacteristics(p electronic.Phone) {
+	fmt.Print(p.Brand(), " ", p.Model(), " ", p.Type())
+	switch p.Type() {
+	case "stantion":
+		p, ok := p.(electronic.StationPhone)
+		if ok {
+			fmt.Println(" ", p.ButtonsCount())
+		}
+	case "smartphone":
+		p, ok := p.(electronic.Smartphone)
+		if ok {
+			fmt.Println(" ", p.OS())
+		}
+	}
 }
