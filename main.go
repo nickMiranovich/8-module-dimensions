@@ -2,29 +2,29 @@ package main
 
 import (
 	"fmt"
-	"myFirstModule/electronic"
+	"myFirstModule/dimensions"
 )
 
 func main() {
-	iphone := electronic.NewApplePhone("9")
-	samsung := electronic.NewAndroidPhone("Galaxy", "X6")
-	nokia := electronic.NewStantionPhone("Nokia", "6310", 17)
+	iphone := dimensions.NewApplePhone("9")
+	samsung := dimensions.NewAndroidPhone("Galaxy", "X6")
+	nokia := dimensions.NewStantionPhone("Nokia", "6310", 17)
 	printCharacteristics(iphone)
 	printCharacteristics(samsung)
 	printCharacteristics(nokia)
 
 }
 
-func printCharacteristics(p electronic.Phone) {
+func printCharacteristics(p dimensions.Phone) {
 	fmt.Print(p.Brand(), " ", p.Model(), " ", p.Type())
 	switch p.Type() {
 	case "stantion":
-		p, ok := p.(electronic.StationPhone)
+		p, ok := p.(dimensions.StationPhone)
 		if ok {
 			fmt.Println(" ", p.ButtonsCount())
 		}
 	case "smartphone":
-		p, ok := p.(electronic.Smartphone)
+		p, ok := p.(dimensions.Smartphone)
 		if ok {
 			fmt.Println(" ", p.OS())
 		}
